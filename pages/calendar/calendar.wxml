@@ -1,0 +1,149 @@
+<!--pages/calendar/calendar.wxml-->
+
+<view class='banner_between'>
+    <view class='title' catchtap='yearAction'>{{todayDate}}</view>
+      <view class='title' > 剩余时间：{{ power}}%</view> 
+    <view class='flex_center' catchtap='uploadAction'>
+        <view class='up' class='upload'   hover-class="upload_click">+</view>
+    </view>
+</view>
+<!-- day -->
+<view class="container">
+    <view class="table">
+        <view class="tr">
+            <view class="th week_word">周\天</view>
+            <view class="th">1</view>
+            <view class="th">2</view>
+            <view class="th">3</view>
+            <view class="th">4</view>
+            <view class="th">5</view>
+            <view class="th">6</view>
+            <view class="th">7</view> 
+        </view>
+        <block wx:for="{{dayShowList}}" wx:for-item="week" wx:for-index="week_index">
+            <view class="tr">
+                <view class="td ">
+                    {{week.week_num+1}}
+                </view>
+                <block wx:for="{{week.week_list}}" wx:for-item="day">                
+                    <view class="td">
+                        <view class='square'  hover-class='square_clic' catchtap='dayClick' data-day_id='{{day.id}}' 
+                        style='background-color: {{day.color}};'>
+                            <image wx:if="{{todayID==day.id}}" src="../../images/eat.gif"> </image>
+                        </view>
+                    </view>
+
+                    <!-- 最后一周插空 -->
+                    <block wx:if="{{week_index==52}}">
+                         <view class="td">
+                        </view>
+                         <view class="td">
+                        </view>
+                         <view class="td">
+                        </view>
+                         <view class="td">
+                        </view>
+                         <view class="td">
+                        </view>
+                         <view class="td">
+                        </view>                         
+                    </block>
+                </block>
+            </view>
+        </block>
+    </view>
+</view>
+
+<!-- 底部 -->
+
+ <!-- <view class='flex_center mark' >
+    <image src='../../images/logo_des.png' class="icon_48"></image>
+</view> -->
+  <view class='flex_center mark space_bottom' >
+    <view>Less</view>
+    <view class='block level_1'></view>
+    <view class='block level_2'></view>
+    <view class='block level_3'></view>
+    <view class='block level_4'></view>
+    <view class='block level_5'></view>
+    <view>More</view>
+</view>
+
+
+ <!-- <view class='flex_center mark' >
+    <view>图片</view>
+    <view>声音</view>
+    <view>视频</view>
+</view>
+ <view class='flex_center mark' >
+    叠加有新颜色哦
+</view>  -->
+
+<view class="photo_preview" hidden='{{!isShowPhotoPreview}}' >
+
+    <view class='screen__center_title screen__absolute' >
+        <view > 
+            <icon type='clear' color='#eee' catchtap="dayPhotoPreviewClose"  ></icon>
+        </view>  
+        <view class='photo_preview__day' >第{{currentDay.id+1}}天</view>
+        <view class='width_23'>  </view>
+    </view>
+  
+    <!-- <view class='photo_preview__description'>撒的花花覅舒服画的是人覅活动日敢回复电热锅hi大润发轰高低更好的发换个地方更好的发光辉</view> -->
+    <scroll-view scroll-x="true" 
+       bindtap="dayPhotoPreviewClose"
+       bindlongpress="dayLongClick"
+       scroll-left="{{scrollLeft}}"
+    >
+        <view class="photo_preview__content">
+            <block wx:for="{{currentDay.file_list}}">
+              <view class="flex_center photo_preview__image">  
+                <image  wx:if="{{item.style == FILE_STYLE_IMAGE}}" catchtap='dayImagePreview' data-image_url="{{item.url}}"
+                class="photo_preview__image" src="{{item.url}}" mode="aspectFit" 
+                ></image>
+
+            <audio wx:elif="{{item.style == FILE_STYLE_AUDIO}}" catchtap='a' name="{{item.create_date}}" author="{{item.create_hour}}" src="{{item.url}}" id="myAudio" controls loop></audio>
+                <!-- <audio wx:elif="{{item.style == FILE_STYLE_AUDIO}}" src="{{item.url}}"></audio> -->
+                <video wx:else src="{{item.url}}" catchtap='a'></video>
+                <!-- <view class='photo_preview__description'>
+                    乱起的核算佛你打谁
+                    <button size='mini' catchtap=''>修改</button>
+                </view> -->
+              </view>  
+            </block>
+        </view>
+    </scroll-view>
+        <!-- <scroll-view scroll-x="true" style="height:{{windowHeight}}px; "
+       bindtap="dayPhotoPreviewClose"
+       bindlongpress="dayLongClick"
+       scroll-left="{{scrollLeft}}"
+    >
+        <view class="photo_preview__content">
+            <block wx:for="{{currentDay.file_list}}">
+              <view >  
+                <image class="photo_preview__image" src="{{item.url}}" mode="aspectFit" 
+                style="height:{{windowHeight-40}}px; "></image>
+                <view class='photo_preview__description'>乱起的核算佛你打谁</view>
+              </view>  
+            </block>
+        </view>
+    </scroll-view> -->
+</view>
+
+
+<template is="upload_audio" 
+data="{{showRecordDialog:showRecordDialog , isAbleUpload:isAbleUpload ,isRecording:isRecording, clock:clock}}"/>
+
+<template   name="upload_audio">
+    <view class="screen__dialog" hidden="{{!showRecordDialog}}">
+        <view class='screen__center'>{{clock}}</view>
+        <button catchtap="start" class='btn' disabled="{{isRecording}}">开始录音</button>
+        <button catchtap="stop" class='btn'  disabled="{{!isRecording}}">停止录音</button>
+        <button catchtap="play" class='btn'>播放录音</button>
+        <view class='screen__center btn'>
+            <button catchtap="closeRecord" size='mini' class=''>关闭</button>
+            <button catchtap="uploadRecord" type='primary' size='mini' disabled="{{!isAbleUpload}}">上传</button>
+        </view>
+       
+    </view>
+</template>

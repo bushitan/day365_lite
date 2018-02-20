@@ -1,0 +1,36 @@
+{
+  "pages":[
+    "pages/calendar/calendar",
+    "pages/my/my"
+
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "坚持365天",
+    "navigationBarTextStyle":"white",
+    "enablePullDownRefresh":"false"
+  },
+  "tabBar": {
+    "backgroundColor":"#fff",
+    "color":"#eee",
+    "selectedColor":"#000",
+    "borderStyle":"white",
+    "list": [{
+        "pagePath": "pages/calendar/calendar",
+        "text": "365天"
+    },
+    {
+      "pagePath": "pages/my/my",
+      "text": "我的"
+    }]
+  },
+  "networkTimeout": {
+    "request": 30000,
+    "uploadFile":30000,
+    "downloadFile": 15000
+  },
+  "debug": true
+}
+
+

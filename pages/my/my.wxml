@@ -1,0 +1,70 @@
+<!--pages/together/together.wxml-->
+<view class="page"  >
+   
+   <view class="head_logo space_bottom" >
+        <image src="{{logo == ''?'../../images/click_login.png':logo}}" catchtap='userLogin'></image>
+    </view>
+
+    <!-- <view class="cells space_bottom">
+         <view catchtap=""  url="" class="cell cell_access " >
+            <view class="icon_box">
+                <image src="{{icon2}}" class="icon"></image>
+            </view>
+            <view class="cell__bd">闹钟</view>
+             <view class="cell__ft ">
+                <switch  bindchange="clockSwitch"/>
+             </view> 
+        </view>
+        <view class="bottom-border "></view>
+        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="timeChange">
+            <navigator  url="" class="cell_member cell_access" hover-class="cell_active">
+                <view class="cell__bd"></view>
+                <view class="cell__ft cell__ft_in-access">
+                   <view class="picker {{isOpenClock == false?'is_closc':''}}">
+                    提醒时间: {{time}}
+                    </view>
+                </view>
+            </navigator>
+        </picker>
+    
+    </view> -->
+
+
+    <view class="scroll_y_img margin__space_t_20" >    
+        <view class='scroll_y_img__title'>辅助小工具 </view>    
+          <view class="bottom-border "></view> 
+         <block wx:for="{{adList}}">
+            <view catchtap='previewImage' data-image_url="{{item.img_url}}" class='screen__space_around margin__space_all_15 ' >  
+                <!-- <view > -->
+                    <image class='icon_96' src="{{item.img_url}}" mode="aspectFit" ></image>
+                <!-- </view> -->
+                <view class='margin__space_left_5'>
+                    <view class='title' >
+                        {{item.title}}
+                    </view>
+                    <view class='description' >
+                        {{item.description}}
+                    </view>
+                </view>
+            </view>  
+        </block>
+    </view>
+</view>
+
+
+
+<!-- <scroll-view scroll-x="true">
+            <view class="scroll_y_img__block">
+                <block wx:for="{{adList}}">
+                <view catchtap='previewImage' data-image_url="{{item.img_url}}" >  
+                    <view>
+                        <image src="{{item.img_url}}" mode="aspectFit" ></image>
+                    </view>
+                    <view class='description' >
+                        {{item.title}}
+                    </view>
+                </view>  
+                </block>
+            </view>
+        </scroll-view> -->
+
