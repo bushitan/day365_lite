@@ -9,7 +9,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "坚持365天",
     "navigationBarTextStyle":"white",
-    "enablePullDownRefresh":"false"
+    "enablePullDownRefresh":false
   },
   "tabBar": {
     "backgroundColor":"#fff",
